@@ -72,7 +72,7 @@ class LeagueofLegends extends React.Component {
 }
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser,
-  summonerName: state.league.league
+  
 })
 
 

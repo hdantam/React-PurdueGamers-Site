@@ -1,7 +1,5 @@
-import {createLeagueDoc, setLeagueInfo} from '../../redux/league/league.actions'
-import {connect} from 'react-redux'
 import React from 'react'
-import {firestore} from '../../firebase/firebase.utils'
+
 
 
 
@@ -26,8 +24,8 @@ class CurrentLeagueInfo extends React.Component {
         )
             )
             filteredLeague.map(lol => (
-                this.setState({summonerName: lol.summonerName}),
-                this.setState({rank: lol.rank})
+                this.setState({summonerName: lol.summonerName, rank: lol.rank})
+                
             ))
             
     }
