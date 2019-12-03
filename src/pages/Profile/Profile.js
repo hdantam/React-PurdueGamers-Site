@@ -2,19 +2,29 @@ import React from 'react'
 import {connect} from 'react-redux'
 import { setCurrentUser} from '../../redux/user/user.actions';
 import LeagueInfo from './LeagueInfo'
+import CurrentLeagueInfo from './currentLeagueInfo'
+import {firestore} from '../../firebase/firebase.utils'
 
 class Profile extends React.Component{ 
 
   state={
-    displayName: '',
+    leagueCollection: []
+    
   }
 
-    componentDidMount(){
-        const {currentUser} = this.props
-        currentUser?
-        console.log(currentUser.id):
-        console.log('error')
-      }
+  async componentDidMount(){
+    firestore.collection('League of Legends').get()
+    .then(snapShot=> {
+        const leagueData = []
+        snapShot.forEach( doc => {
+            const data = doc.data()
+            leagueData.push(data);
+        })
+        this.setState({leagueCollection: leagueData})
+    
+    }).catch(error => console.log(error))
+    
+}
       
 
 
@@ -26,22 +36,33 @@ console.log('hino')
    console.log('submitted!')
  }
 
+ getFilteredName =() => {
+   console.log('hi')
+ }
+
 
     render() {
         const {currentUser} = this.props
+        const {leagueCollection} = this.state
+
         return(
             currentUser?
+
             <div>
                 <div>
                 <h1 style={{textAlign: 'center', backgroundColor: 'light-blue'}}><b>Welcome, {currentUser.displayName}</b></h1>
                 </div>
-                <div>
+                <div style={{textAlign:'center'}}>
                 Email: {currentUser.email}
                 </div>
                 <div>
-                    id: {currentUser.id}
+                
                 </div>
                 <div>
+                  <CurrentLeagueInfo currentUser={currentUser} leagueCollection={leagueCollection}/>
+                </div>
+                <div>
+   
                     <LeagueInfo currentUser={currentUser}/>
                 </div>
 

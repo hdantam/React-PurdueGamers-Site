@@ -13,7 +13,7 @@ const Header = ( {currentUser}) => (
 
                 {
                     currentUser ?
-                    <Link className='option' to='/Profile'>Profile</Link>:null
+                    <Link className='option' to='/Profile' >Profile</Link>:null
                     
                 }
 

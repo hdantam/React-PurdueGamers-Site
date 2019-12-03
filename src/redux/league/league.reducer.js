@@ -6,7 +6,6 @@ const leagueReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case ('CREATE_LEAGUE_DOC') :{
             return state
-            break;
         }
         case ('CREATE_LEAGUE_DOC_ERROR') : {
             console.log('create league doc error', action.error)
@@ -18,8 +17,6 @@ const leagueReducer = (state = INITIAL_STATE, action) => {
                 league: action.payload
             }
         }
-
-    
         
         default :
         return state;

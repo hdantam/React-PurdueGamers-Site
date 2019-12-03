@@ -1,6 +1,6 @@
 import React from 'react';
 import {firestore} from '../../firebase/firebase.utils';
-import './LeagueofLegends.scss'
+import './Overwatch.scss'
 import {connect} from 'react-redux'
 import {CardList} from './card-list'
 
@@ -16,14 +16,14 @@ class LeagueofLegends extends React.Component {
         }
     }
     async componentDidMount(){
-        firestore.collection('League of Legends').get()
+        firestore.collection('Overwatch').get()
         .then(snapShot=> {
-            const leagueData = []
+            const overwatchData = []
             snapShot.forEach( doc => {
                 const data = doc.data()
-                leagueData.push(data);
+                overwatchData.push(data);
             })
-            this.setState({collections: leagueData})
+            this.setState({collections: overwatchData})
         
         }).catch(error => console.log(error))
         
@@ -50,7 +50,7 @@ class LeagueofLegends extends React.Component {
         
 
         <div className='league-page'>
-            <h2 className="w3-panel" style={{textAlign: 'center' ,width: '100%'}}><img style={{width:'80px',height:'50px'}} src="https://i.pinimg.com/originals/30/0e/58/300e58c8416a68dcfcf1761501348243.jpg" alt="League icon"/><b>League of Legends</b></h2>
+            <h2 className="w3-panel" style={{textAlign: 'center' ,width: '100%'}}><img style={{width:'40px',height:'40px'}} src="https://i.dlpng.com/static/png/232624_preview.png" alt="Overwatch icon"/><b>Overwatch</b></h2>
             <div>
                 <h4 style={{textAlign: 'center'}}>
                 <input style={{align: 'center'}} onChange={e=> this.setState({searchField: e.target.value})} type='search' placeholder='Search by name' />

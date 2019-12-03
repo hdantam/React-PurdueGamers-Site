@@ -10,7 +10,7 @@ const Card = (props) => (
     </header>
     
     <div className="w3-container w3-border">
-      <p><b>Summoner Name:</b> {props.lol.summonerName}</p>
+      <p><b>Battle Tag:</b> {props.lol.BattleTag}</p>
       <p><b>Rank:</b> {props.lol.rank}</p>
     </div>
     

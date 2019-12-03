@@ -1,7 +1,7 @@
 import {createLeagueDoc, setLeagueInfo} from '../../redux/league/league.actions'
 import {connect} from 'react-redux'
 import React from 'react'
-import UpdateLeagueCardForm from './UpdateLeagueCardForm'
+import {firestore} from '../../firebase/firebase.utils'
 
 
 class LeagueInfo extends React.Component {
@@ -11,8 +11,10 @@ class LeagueInfo extends React.Component {
         summonerName: '',
         rank: '',
         
-        
     }
+
+ 
+
     handleChange = (e) => {
         this.setState({
         [e.target.id]: e.target.value
@@ -26,23 +28,34 @@ class LeagueInfo extends React.Component {
         
     }
 
+
+    async componentDidMount(){
+        console.log(this.props.currentUser.id)
+        const {id} = this.props.currentUser.id
+        console.log(id);
+    }
+
+    getFireStoreData(e) {
+        firestore.collection('League of Legends').doc(e).onSnapshot(function(doc) {
+            console.log("Current data: ", doc.data());
+        });
+    }
+
 render() {
     
     return(
         
               <div> 
-        <h4>Your current league of legends information:</h4> 
-            <p>Summoner Name: {this.props.leagueInfo && this.props.leagueInfo.summonerName}</p>
-            <p>Rank: {this.props.leagueInfo && this.props.leagueInfo.rank}</p>
+                  
+        <h4 style={{textAlign: 'center'}}>Update your League of Legends Information</h4> 
+          
             
             
 
             <form onSubmit={this.handleSubmit} className="w3-container">
-                <label>Summoner Name</label>
-                <input className="w3-input" type="text" id='summonerName' onChange={this.handleChange}/>
-                <label>Rank</label>
-                <input className="w3-input" id='rank' type="text" onChange={this.handleChange}/>
-                <button class="w3-btn">Update League Info</button>
+                <input placeholder='Summoner Name (in game name)' className="w3-input" type="text" id='summonerName' onChange={this.handleChange}/>
+                <input placeholder='Rank (ex. Bronze 1)' className="w3-input" id='rank' type="text" onChange={this.handleChange}/>
+                <button className="w3-btn" onClick={() => window.location.reload(false)}>Update League Info</button>
 
         </form>
         </div>
@@ -51,11 +64,7 @@ render() {
 
 }
 
-const mapStateToProps = (state) => ({
-    currentUser: state.user.currentUser,
-    leagueInfo: state.league.league,
-    
-  })
+
 
 const mapDispatchToProps = (dispatch) => {
     return{
@@ -65,4 +74,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeagueInfo)
+export default connect(null, mapDispatchToProps)(LeagueInfo)
